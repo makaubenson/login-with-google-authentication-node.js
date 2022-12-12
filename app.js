@@ -1,10 +1,12 @@
 const path = require("path");
 const express = require("express");
+const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const exphbs = require("express-handlebars");
 const passport = require("passport");
 const session = require("express-session");
+const MongoStore = require("connect-mongo");
 const connectDB = require("./config/db");
 
 //Load Config File
@@ -34,6 +36,10 @@ app.use(
     secret: "keyboard cat",
     resave: false,
     saveUninitialized: false,
+    store: new MongoStore({
+      mongoUrl: process.env.MONGO_URI,
+      collection: "sessions",
+    }),
   })
 );
 
