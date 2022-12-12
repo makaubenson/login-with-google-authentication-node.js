@@ -17,4 +17,17 @@ router.get(
   }
 );
 
+//@desc Logout user
+//@route /auth/logout
+
+router.get("/logout", (req, res) => {
+  //with passport middleware, once login in, we will have logout() method in request method
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
+
 module.exports = router;
